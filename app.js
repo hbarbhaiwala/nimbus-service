@@ -38,15 +38,15 @@ app.post('/createNimbusEvent', function (request, response) {
 app.get('/retrieveAllEvents', function (request, response) {
   console.log ('retrieveAllEvents');
 
-  res.writeHead(200, "OK", {'Content-Type': 'text/html'});
-  res.write('<html><head><title>Creating the Nimbus event</title></head><body>');
+  response.writeHead(200, "OK", {'Content-Type': 'text/html'});
+  response.write('<html><head><title>Creating the Nimbus event</title></head><body>');
 
   mongoHelper.find({ }, response, function(result, res) {
     res.write(result);
   });
 
-  res.write('</body></html>');
-  res.end();
+  response.write('</body></html>');
+  response.end();
 });
 
 /**
