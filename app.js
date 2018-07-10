@@ -22,31 +22,24 @@ app.get('/', function (request, response) {
   response.end();
 });
 
-app.get('/createNimbusEvent', function (request, response) {
+app.post('/createNimbusEvent', function (request, response) {
   console.log ('createNimbusEvent');
 
-  // var data = {
-  //   ruleId: request.body.ruleId,
-  //   description: request.body.description,
-  //   startDateTime: request.body.startDateTime,
-  //   endDateTime: request.body.endDateTime
-  // };
-
   var data = {
-    ruleId: '1',
-    description: 'waah waah',
-    startDateTime: 'today',
-    endDateTime: 'tmr'
+    ruleId: request.body.ruleId,
+    description: request.body.description,
+    startDateTime: request.body.startDateTime,
+    endDateTime: request.body.endDateTime
   };
 
-  mongoHelper.insert(data);
+  console.log('received request' + request.body);
 
-  response.writeHead(200, "OK", {'Content-Type': 'text/html'});
-  response.write('<html><head><title>Creating the Nimbus event</title></head><body>');
-  response.write('toodle');
-  response.write('</body></html>');
-  response.end();
+  mongoHelper.insert(data, null ,function(retValue) {
+    response.setHeader('Content-Type', 'application/json');
+    response.send(JSON.stringify(retValue));
+  });
 });
+
 
 app.get('/retrieveAllEvents', function (request, response) {
   console.log ('retrieveAllEvents');
