@@ -1,0 +1,21 @@
+{
+  "author": "Expedia Inc.",
+  "dependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.31",
+    "nodemon": "^1.9.2",
+    "request": "^2.73.0",
+    "webpack": "^1.13.1"
+  },
+  "description": "Backend for Nimbus service.",
+  "license": "SEE LICENSE IN LICENSE.TXT",
+  "main": "app.js",
+  "name": "ecp-nimbus-service",
+  "scripts": {
+    "start": "nodemon ./app.js --exec babel-node"
+  },
+  "version": "1.0.0"
+}
