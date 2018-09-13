@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const https = require('https');
-const request = require('request');
-const mongoHelper = require('./lib/mdbHelper.js');
-const objectId = require('mongodb').ObjectId;
+//const https = require('https');
+//const request = require('request');
+const baseController = require('./controller/base.controller.js');
+const nimbusController = require('./controller/nimbus-event.controller.js');
+const subAppController = require('./controller/sub-app-controller.js');
 
 /**
  * Set up our server and static page hosting
@@ -13,44 +14,18 @@ app.use(express.static('public'));
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json());
 
-app.get('/', function (request, response) {
-  console.log ('home');
-  response.writeHead(200, "OK", {'Content-Type': 'text/html'});
-  response.write('<html><head><title>Creating the Nimbus event</title></head><body>');
-  response.write('yoyoyoyoy');
-  response.write('</body></html>');
-  response.end();
-});
-
-app.post('/createNimbusEvent', function (request, response) {
-  console.log ('createNimbusEvent');
-
-  var data = {
-    ruleId: request.body.ruleId,
-    description: request.body.description,
-    startDateTime: request.body.startDateTime,
-    endDateTime: request.body.endDateTime
-  };
-
-  console.log('received request' + request.body);
-
-  mongoHelper.insert(data, null ,function(retValue) {
-    response.setHeader('Content-Type', 'application/json');
-    response.send(JSON.stringify(retValue));
-  });
-});
+app.get('/', baseController.root);
+app.get('/foo', baseController.foo);
+app.use('/subapp', subAppController.routes)
 
 
-app.get('/retrieveAllEvents', function (request, response) {
-  console.log ('retrieveAllEvents');
+app.all('*', baseController.log);
 
-  var allEvents = mongoHelper.find({ }, null, function(retValue) {
-    console.log('Return value: ' + retValue);
 
-    response.setHeader('Content-Type', 'application/json');
-    response.send(JSON.stringify(retValue));
-  })
-});
+app.post('/createNimbusEvent', nimbusController.create);
+app.get('/retrieveAllEvents', nimbusController.findAll);
+app.get('/retrieveEvent', nimbusController.find);
+app.get('/nimbus-event/:id', nimbusController.findWithId);
 
 /**
 * Start serving the app.
