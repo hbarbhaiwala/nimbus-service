@@ -23,7 +23,7 @@ app.all('*', baseController.log);
 
 
 app.post('/createNimbusEvent', nimbusController.create);
-app.get('/retrieveAllEvents', nimbusController.findAll);
+app.get('/retrieveAllEvents', baseController.middleware, nimbusController.findAll);
 app.get('/retrieveEvent', nimbusController.find);
 app.get('/nimbus-event/:id', nimbusController.findWithId);
 

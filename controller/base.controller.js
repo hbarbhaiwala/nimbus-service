@@ -14,6 +14,11 @@ exports.foo = (req, res) => {
     res.send(JSON.stringify(retValue));
 }
 
+exports.middleware = (req, res, next) => {
+    console.log('middleware here ....');
+    next(); // pass control to the next handler
+}
+
 exports.log = (req, res, next) => {
     console.log('doing something here ....');
     next(); // pass control to the next handler
