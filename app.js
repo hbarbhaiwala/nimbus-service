@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const defaultRoutes = require('./routes/defaultRoutes')
+const defaultRoutes = require('./routes/index');
 
 /**
  * Set up our server and static page hosting
