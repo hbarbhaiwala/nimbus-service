@@ -1,4 +1,5 @@
-const nimbus_model = require('./nimbus-event/models/nimbus-event.model');
+//import { NimbusEvent } from "../models/nimbus-event.model";
+
 const mongoHelper = require('../lib/mdbHelper');
 const querystring = require('querystring');
 
@@ -6,13 +7,12 @@ const querystring = require('querystring');
 exports.create = (req, res) => {
 
     console.log('received request' + req.body);
-
-    var data = {
-        ruleId: req.body.ruleId,
-        description: req.body.description,
-        startDateTime: new Date(req.body.startDateTime),
-        endDateTime: new Date(req.body.endDateTime)
-    };
+    var data = {};
+    // var data = new NimbusEvent(
+    //     /*ruleId:*/ req.body.ruleId,
+    //     /*description:*/ req.body.description,
+    //     /*startDateTime:*/ new Date(req.body.startDateTime),
+    //     /*endDateTime:*/ new Date(req.body.endDateTime));
 
     mongoHelper.insert(data, null ,function(retValue) {
         res.setHeader('Content-Type', 'application/json');

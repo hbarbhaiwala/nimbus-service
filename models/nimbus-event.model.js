@@ -1,4 +1,4 @@
-class NimbusEvent {
+export class NimbusEvent {
     constructor(ruleId, description, startDate, endDate) {
         this.ruleId = ruleId;
         this.description = description;
