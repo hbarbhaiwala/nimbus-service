@@ -1,16 +1,13 @@
 
 const { buildSchema } = require('graphql');
 // GraphQL schema
-const schema = buildSchema(`
+exports.schema = buildSchema(`
     type Query {
         message: String
     }
 `);
 
 // Root resolver
-var root = {
+exports.root = {
     message: () => 'Hello World!'
 };
-
-exports.root = root;
-exports.schema = schema;
