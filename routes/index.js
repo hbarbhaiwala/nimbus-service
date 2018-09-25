@@ -6,7 +6,7 @@ var router = express.Router();
 const baseController = require('../controller/base.controller.js');
 const nimbusController = require('../controller/nimbus-event.controller.js');
 const subAppController = require('../controller/sub-app-controller.js');
-const graphqlController = require('../controller/graphql');
+const graphqlController = require('../controller/graphql.helloWorld.controller');
 const coursesGraphqlController = require('../controller/graphql.courses.controller');
 
 // middleware that is specific to this router
