@@ -7,6 +7,13 @@ exports.schema = buildSchema(`
         course(id: Int!): Course
         courses(topic: String): [Course]
     },
+    type Mutation {
+        updateCourseWithId(id: Int!): Course
+        updateCourseWithTopic(topic: String): Course
+    },
+    type CourseUpdate {
+        id: Int
+    },
     type Course {
         id: Int
         title: String
@@ -16,6 +23,8 @@ exports.schema = buildSchema(`
         url: String
     }
 `);
+
+///*updateCourse(courseUpdate: CourseUpdate!): Course*/
 var coursesData = [
     {
         id: 1,
@@ -56,8 +65,31 @@ var getCourses = function(args) {
         return coursesData;
     }
 }
+var updateCourseWithId = function(args) {
+    var id = args.id;
+    return coursesData.filter(course => {
+        if (course.id == id) {
+            course.url += "modified";
+        }
+        return course;
+    })[0];
+}
+var updateCourseWithTopic = function(args) {
+    var topic = args.topic;
+    return coursesData.filter(course => {
+        if (course.topic == topic) {
+            course.url += "modified";
+        }
+        return course;
+    })[0];
+}
+var updateCourse = function(args) {
+    return null;
+}
 
 exports.root = {
     course: getCourse,
-    courses: getCourses
+    courses: getCourses,
+    updateCourseWithId: updateCourseWithId,
+    updateCourseWithTopic: updateCourseWithTopic
 };
