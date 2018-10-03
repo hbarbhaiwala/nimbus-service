@@ -13,7 +13,7 @@ const coursesGraphqlController = require('../controller/graphql.courses.controll
 router.use(function timeLog (req, res, next) {
     console.log('Time: ', Date.now())
     next()
-})
+});
 
 // For all routes do some logging
 router.all('*', baseController.log);
@@ -45,5 +45,13 @@ router.use('/courses', express_graphql({
     rootValue: coursesGraphqlController.root,
     graphiql: true
 }));
+
+var { graphql } = require('graphql');
+graphql(
+    graphqlController.schema,
+    '{message}',
+    graphqlController.root).then((response) => {
+    console.log(response);
+});
 
 module.exports = router;
