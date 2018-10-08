@@ -66,6 +66,7 @@ var getCourses = function(args) {
     }
 }
 var updateCourseWithId = function(args) {
+    console.log("update course with id triggered...");
     var id = args.id;
     return coursesData.filter(course => {
         if (course.id == id) {
@@ -75,6 +76,7 @@ var updateCourseWithId = function(args) {
     })[0];
 }
 var updateCourseWithTopic = function(args) {
+    console.log("update course with topic triggered...");
     var topic = args.topic;
     return coursesData.filter(course => {
         if (course.topic == topic) {
@@ -84,8 +86,9 @@ var updateCourseWithTopic = function(args) {
     })[0];
 }
 var updateCourse = function(args) {
-    console.log("update course triggered...")
-    return null;
+    console.log("update course triggered...");
+
+    return updateCourseWithId(args.input);
 }
 
 exports.root = {
