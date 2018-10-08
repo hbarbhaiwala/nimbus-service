@@ -1,5 +1,4 @@
-var express = require('express');
-var express_graphql = require('express-graphql');
+
 var { buildSchema } = require('graphql');
 // GraphQL schema
 exports.schema = buildSchema(`
@@ -10,9 +9,11 @@ exports.schema = buildSchema(`
     type Mutation {
         updateCourseWithId(id: Int!): Course
         updateCourseWithTopic(topic: String): Course
+        updateCourse(input: CourseUpdateInput): Course
     },
-    type CourseUpdate {
+    input CourseUpdateInput {
         id: Int
+        topic: String
     },
     type Course {
         id: Int
@@ -24,7 +25,6 @@ exports.schema = buildSchema(`
     }
 `);
 
-///*updateCourse(courseUpdate: CourseUpdate!): Course*/
 var coursesData = [
     {
         id: 1,
@@ -84,6 +84,7 @@ var updateCourseWithTopic = function(args) {
     })[0];
 }
 var updateCourse = function(args) {
+    console.log("update course triggered...")
     return null;
 }
 
@@ -91,5 +92,6 @@ exports.root = {
     course: getCourse,
     courses: getCourses,
     updateCourseWithId: updateCourseWithId,
-    updateCourseWithTopic: updateCourseWithTopic
+    updateCourseWithTopic: updateCourseWithTopic,
+    updateCourse: updateCourse
 };
