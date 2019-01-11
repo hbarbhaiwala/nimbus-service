@@ -8,6 +8,7 @@ const nimbusController = require('../controller/nimbus-event.controller.js');
 const subAppController = require('../controller/sub-app-controller.js');
 const graphqlController = require('../controller/graphql.helloWorld.controller');
 const coursesGraphqlController = require('../controller/graphql.courses.controller');
+const awsController = require('../controller/aws.controller');
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
@@ -30,6 +31,9 @@ router.post('/createNimbusEvent', nimbusController.create);
 router.get('/retrieveAllEvents', baseController.middleware, nimbusController.findAll);
 router.get('/retrieveEvent', nimbusController.find);
 router.get('/nimbus-event/:id', nimbusController.findWithId);
+
+// sub-app the aws controller
+router.use("/aws", awsController.routes);
 
 
 // GraphQL
